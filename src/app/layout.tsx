@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import JotaiProvider from "./providers/JotaiProvider";
-import '@fortawesome/fontawesome-free/css/all.css';
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <JotaiProvider>
-          {children}
-        </JotaiProvider>
+        <JotaiProvider>{children}</JotaiProvider>
       </body>
     </html>
   );
