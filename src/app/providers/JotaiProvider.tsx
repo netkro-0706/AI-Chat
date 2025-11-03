@@ -1,18 +1,14 @@
-"use client"
+"use client";
 
-import { Provider } from "jotai"
-import React from "react"
+import { Provider } from "jotai";
+import React from "react";
 
-interface Props{
-  children: React.ReactNode
+interface Props {
+  children: React.ReactNode;
 }
 
-const JotaiProvider = ({children}: Props) =>{
-  return (
-    <Provider>
-      {children}
-    </Provider>
-  )
-}
+const JotaiProvider = ({ children }: Props) => {
+  return <Provider>{children}</Provider>;
+};
 
-export default JotaiProvider
+export default JotaiProvider;

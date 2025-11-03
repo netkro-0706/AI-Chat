@@ -1,4 +1,3 @@
-
 const QuestionMessage = () => {
   return (
     <div className="flex justify-end">
@@ -6,7 +5,7 @@ const QuestionMessage = () => {
         Question Message
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default QuestionMessage
+export default QuestionMessage;
