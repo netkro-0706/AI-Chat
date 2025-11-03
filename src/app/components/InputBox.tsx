@@ -7,6 +7,7 @@ import { MessagesAtom, type ChatMessage } from "../store/Messages";
 
 const InputBox = () => {
   const [value, setValue] = useState("");
+  const [lang, setLang] = useState("ko-KR");
   const setMessages = useSetAtom(MessagesAtom);
   // 채팅 로그 확인용
   const chatLog = useAtomValue(MessagesAtom);
@@ -15,6 +16,7 @@ const InputBox = () => {
       setValue(result);
     },
   });
+  const start = () => listen({ lang, interimResults: true, continuous: true });
 
   // 채팅 로그 확인용
   useEffect(() => {
@@ -45,7 +47,16 @@ const InputBox = () => {
             if (e.key === "Enter") OnSubmit();
           }}
         />
-        <button onClick={!listening ? listen : stop}>
+        <select
+          className="mr-1"
+          value={lang}
+          onChange={(e) => setLang(e.target.value)}
+        >
+          <option value="ko-KR">한국어</option>
+          <option value="en-US">English</option>
+          <option value="ja-JP">日本語</option>
+        </select>
+        <button onClick={!listening ? start : stop}>
           <i
             className={`fa-solid fa-microphone  px-1 py-1 rounded-full hover:cursor-pointer
               ${listening ? "bg-green-500" : "bg-gray-300"}`}

@@ -1,15 +1,18 @@
 declare module "react-speech-kit" {
+  export interface ListenOptions {
+    lang?: string;
+    continuous?: boolean;
+    interimResults?: boolean;
+  }
+
   export interface UseSpeechRecognitionOptions {
     onResult?: (text: string) => void;
     onError?: (error: any) => void;
     onEnd?: () => void;
-    continuous?: boolean;
-    interimResults?: boolean;
-    lang?: string;
   }
 
   export interface UseSpeechRecognitionReturn {
-    listen: () => void;
+    listen: (options?: ListenOptions) => void; // 여기 수정
     stop: () => void;
     listening: boolean;
     transcript: string;
