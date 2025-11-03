@@ -1,15 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useAtomValue, useSetAtom } from "jotai";
+import { useEffect, useState } from "react";
 import { useSpeechRecognition } from "react-speech-kit";
+import { MessagesAtom, type ChatMessage } from "../store/Messages";
 
 const InputBox = () => {
   const [value, setValue] = useState("");
-  const { listen, listening, stop, transcript } = useSpeechRecognition({
+  const setMessages = useSetAtom(MessagesAtom);
+  // 채팅 로그 확인용
+  const chatLog = useAtomValue(MessagesAtom);
+  const { listen, listening, stop } = useSpeechRecognition({
     onResult: (result) => {
       setValue(result);
     },
   });
+
+  // 채팅 로그 확인용
+  useEffect(() => {
+    console.log("chatLog", chatLog);
+  }, [chatLog]);
+
+  const OnSubmit = () => {
+    if (value === "") return;
+    const message: ChatMessage = {
+      id: crypto.randomUUID(),
+      text: value,
+      from: "me",
+      createAt: new Date().toLocaleString("ko-KR"),
+    };
+    setMessages((prev) => [...prev, message]);
+    setValue("");
+  };
 
   return (
     <div className="flex items-center">
@@ -19,6 +41,9 @@ const InputBox = () => {
           className="border-none outline-none focus:outline-none"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") OnSubmit();
+          }}
         />
         <button onClick={!listening ? listen : stop}>
           <i
@@ -29,6 +54,7 @@ const InputBox = () => {
         <button
           type="button"
           className="bg-gray-300 ml-1 pr-1 pl-1 rounded hover:cursor-pointer"
+          onClick={OnSubmit}
         >
           Enter
         </button>
